@@ -1,0 +1,31 @@
+.day-container {
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  min-height: 100vh;
+  background: #0000006b;
+  display: flex;
+  bottom: 0;
+  top: 0;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+.close-day-event {
+  position: absolute;
+  right: 0;
+  top: 40px;
+}
+.day-event {
+  position: absolute;
+  z-index: 999;
+  width: 60%;
+  height: 60%;
+  color: white;
+  background-color: white;
+  border-color: black;
+}
+.date {
+  position: absolute;
+  color: black;
+}
