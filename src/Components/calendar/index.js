@@ -2,17 +2,6 @@ import React from "react";
 import moment from "moment";
 import "./calendar.css";
 
-// import ReactDOM from "react-dom";
-
-// let weekdayshort = moment.weekdaysShort();
-
-// let weekdayshortname = this.weekdayshort.map(day => {
-//   return (
-//     <th key={day} className="week-day">
-//       {day}
-//     </th>
-//   );
-// });
 export default class Calendar extends React.Component {
   state = {
     dateContext: moment(),
@@ -28,15 +17,15 @@ export default class Calendar extends React.Component {
   }
 
   // moment.updateLocale('en', {
-  weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
+  // weekdays = [
+  //   "Sunday",
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday"
+  // ];
 
   weekdaysShort = moment.weekdaysShort();
   months = moment.months();
@@ -68,9 +57,10 @@ export default class Calendar extends React.Component {
     let dateContext = Object.assign({}, this.state.dateContext);
     dateContext = moment(dateContext).set("month", monthNo);
     this.setState({
-      dateContext: dateContext
-      //   dataContext: dateContext
+      dateContext: dateContext,
+      month: this.month
     });
+    console.log(month);
   };
   nextMonth = () => {
     let dateContext = Object.assign({}, this.state.dateContext);
@@ -95,9 +85,9 @@ export default class Calendar extends React.Component {
   };
 
   SelectList = props => {
-    let popup = props.data.map(data => {
+    let popup = props.data.map((data, index) => {
       return (
-        <div key={data}>
+        <div key={index}>
           <button
             onClick={e => {
               this.onSelectChange(e, data);
@@ -141,9 +131,11 @@ export default class Calendar extends React.Component {
     let dateContext = Object.assign({}, this.state.dateContext);
     dateContext = moment(dateContext).set("year", year);
     this.setState({
-      dateContext: dateContext
+      dateContext: dateContext,
+      year: this.state.year
     });
   };
+
   onYearChange = e => {
     this.setYear(e.target.value);
     this.props.onYearChange && this.props.onYearChange(e, e.target.value);
@@ -190,9 +182,9 @@ export default class Calendar extends React.Component {
     this.props.onDayClick && this.props.onDayClick(e, day);
   };
   render() {
-    let weekdays = this.weekdaysShort.map(day => {
+    let weekdays = this.weekdaysShort.map((day, index) => {
       return (
-        <td key={day} className="week-day">
+        <td key={index} className="week-day">
           {day}
         </td>
       );
@@ -211,7 +203,7 @@ export default class Calendar extends React.Component {
     for (let d = 1; d <= this.daysInMonth(); d++) {
       let className = d === this.currentDay() ? "day current-day" : "day";
       daysInMonth.push(
-        <td key={d} className={className}>
+        <td key={d * 99} className={className}>
           <span
             onClick={e => {
               this.onDayClick(e, d);
@@ -285,13 +277,3 @@ export default class Calendar extends React.Component {
     );
   }
 }
-// export default function App() {
-//   return (
-//     <div className="App">
-//       <Calendar />
-//     </div>
-//   );
-// }
-
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<App />, rootElement);

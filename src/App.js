@@ -10,6 +10,7 @@ import Login from "./Components/auth/login";
 import Day from "./Components/day/Day";
 
 import Calendar from "./Components/calendar/index";
+// import { months } from "moment";
 
 (function testAxios() {
   console.log(process.env.REACT_APP_SERVER_URL);
@@ -30,13 +31,14 @@ class App extends Component {
   state = {
     currentDay: null
   };
-  onDayClick = (e, day) => {
-    alert(day);
-    this.setState({ currentDay: day });
+  onDayClick = (e, day, month, year) => {
+    console.log("ici", day, month, year);
+    this.setState({ currentDay: day, currentMonth: month, currentYear: year });
   };
   handleCloseDay = () => {
     this.setState({ currentDay: null });
   };
+
   render() {
     return (
       <div className="nav">
@@ -49,7 +51,12 @@ class App extends Component {
         </Switch>
         {/* <Route path="/calendar" component={calendar} /> */}
         {this.state.currentDay && (
-          <Day closeDay={this.handleCloseDay} dayinfos="yolo" />
+          <Day
+            closeDay={this.handleCloseDay}
+            dayinfos={this.day}
+            monthinfos={this.month}
+            yearinfos={this.year}
+          />
         )}
         <Calendar
           style={style}
