@@ -1,0 +1,22 @@
+.long-event-container {
+  /* position: relative;
+  z-index: 40;
+  color: white;
+  background-color: black; */
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  min-height: 100vh;
+  background: #0000006b;
+  bottom: 0;
+  top: 0;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+.form-long-event {
+  display: grid;
+  top: 26%;
+  left: 43%;
+  position: absolute;
+}

@@ -9,7 +9,7 @@ tr {
 
 .calendar-container {
   position: relative;
-  top: 40px;
+  top: 90px;
   border: 2px solid skyblue;
 }
 
@@ -104,4 +104,21 @@ tr {
 
 .label-month {
   cursor: pointer;
+}
+.long-event-creator {
+  position: absolute;
+  right: 1%;
+  top: 0%;
+  color: black;
+  z-index: 35;
+  font-size: 35px;
+}
+.long-form-block {
+  display: "block";
+  z-index: 40;
+  color: "black";
+}
+
+.long-form-none {
+  display: none;
 }

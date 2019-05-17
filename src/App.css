@@ -7,32 +7,56 @@ body {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 7%;
+  height: 10%;
   width: 100%;
   background-color: rgb(76, 76, 231);
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   display: flex;
   align-items: center;
+  border-radius: 10px 10px 0 0;
 }
 .mainnav {
   bottom: 0%;
   position: fixed;
   left: 0;
   top: 0;
-  height: 7%;
+  height: 10%;
   width: 100%;
   background-color: rgb(76, 76, 231);
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   display: flex;
   align-items: center;
+  border-radius: 0 0 10px 10px;
+  padding: 0 40px;
+}
+.mainnav .navnotlog {
+  flex: 0 0 80%;
+}
+
+.mainnav nav,
+.mainnav .sub {
+  display: flex;
+  align-items: center;
+}
+
+.mainnav .sub {
+  flex: 0 0 20%;
+  justify-content: flex-start;
+}
+
+.mainnav a {
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+  flex-direction: row;
 }
 .mainnav p {
   margin-left: 30px;
   color: white;
 }
-.botnav p {
+.botnav a {
   margin-left: 30px;
   color: white;
   text-decoration: none;

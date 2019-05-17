@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import moment from "moment";
 import "./Day.css";
+import "../calendar/index";
+import DayEvent from "../event-day/dayEvent";
+import { getEvents } from "../../API/api";
+//create class Day
 
 export default class Day extends Component {
   constructor(props) {
@@ -11,10 +15,19 @@ export default class Day extends Component {
     this.state = {
       dateContext: moment(),
       today: moment(),
+      date: "",
       showHour: false,
-      hour: moment.duration().hours()
+      hour: moment.duration().hours(),
+      showEventPopup: false,
+      startTime: 0,
+      endTime: 0,
+      name: "",
+      color: "",
+      events: []
     };
   }
+
+  //setup for date month currenthours et year
 
   date = () => {
     return this.state.dateContext.format("D"); // Monday, June 9 2014 9:32 PM
@@ -29,14 +42,74 @@ export default class Day extends Component {
     return this.state.dateContext.format("Y");
   };
 
-  //   setHours = hours => {
-  //     let dateContext = Object.assign({}, this.state.dateContext);
-  //     dateContext = moment(dateContext).set("hours", hours);
-  //   };
-  hourContainer = () => {
-    return <div className="hours-container" />;
+  //open event creator
+
+  onEventClick = () => {
+    console.log("Hello");
+    this.setState({ showEventPopup: !this.state.showEventPopup });
   };
+
+  //get info from dayevent
+
+  getInfosFromDayEvent = (
+    startTimeFromDayEvent,
+    endTimeFromDayEvent,
+    nameFromDayEvent,
+    colorFromDayEvent
+  ) => {
+    this.setState({
+      date: this.props.dayInfos + this.props.monthInfos + this.props.yearInfos,
+      startTime: startTimeFromDayEvent,
+      endTime: endTimeFromDayEvent,
+      name: nameFromDayEvent,
+      color: colorFromDayEvent,
+      showEventPopup: false
+    });
+  };
+
+  componentDidMount() {
+    console.log("aaaa");
+    console.log(
+      "qjsfdsbqlvdsb",
+      this.props.dayInfos + this.props.monthInfos + this.props.yearInfos
+    );
+    getEvents(
+      `?date=${this.props.dayInfos +
+        this.props.monthInfos +
+        this.props.yearInfos}`
+    )
+      .then(dbRes => {
+        console.log(dbRes, "ghghghgghgh");
+        this.setState({
+          events: dbRes.data
+        });
+      })
+      .catch(dbErr => {
+        console.log(dbErr, "eeee");
+      });
+  }
+
+  // getEvent = () => {
+  //   console.log("ssssss");
+
+  //   return getEvents();
+  // };
+
+  //create event for day event
+
   render() {
+    console.log(
+      this.props.dayInfos + this.props.monthInfos + this.props.yearInfos
+    );
+    console.log(this.state.showEventPopup);
+
+    //set style for event container
+
+    var formEvent = "";
+    console.log(formEvent);
+
+    //set hour in a day
+
     let totalHours = [
       0,
       1,
@@ -64,29 +137,63 @@ export default class Day extends Component {
       23,
       24
     ];
-    console.log(this.state.month);
+
+    var start = totalHours[this.state.startTime];
+    var end = totalHours[this.state.endTime];
+    //then map totalhours
+
     let hours = totalHours.map((hour, index) => {
-      return (
-        <td key={index} className="week-day">
+      return start <= hour && hour <= end ? (
+        <p key={index}>
           {hour}
-        </td>
+          {"h"}
+          <hr className="line-hour eventLine" />
+          <div
+            className="event-info"
+            style={{ backgroundColor: this.state.color }}
+          >
+            {this.state.name}
+          </div>
+        </p>
+      ) : (
+        <p key={index}>
+          {hour}
+          {"h"} <hr className="line-hour" />
+        </p>
       );
     });
+
+    //then select from that time to that time
+
+    //return
+    console.log(this.state.dateContext);
     return (
       <div className="day-container">
         <i className="close-day-event" onClick={this.props.closeDay}>
           X
         </i>
+
         <div className="day-event">
+          <i className="event-creater" onClick={this.onEventClick}>
+            +
+          </i>
           <p className="date">
-            {this.date()} {this.year()} {this.month()}
+            {this.props.dayInfos} {this.props.monthInfos} {this.props.yearInfos}
             {this.state.showMonthPopup && (
               <this.SelectList data={this.months} />
             )}
           </p>
-          {this.state.hours || "pouet"}
-          {hours}
+          <div className="hour-day">{hours}</div>
         </div>
+        {
+          <DayEvent
+            css={this.state.showEventPopup ? "form-block" : "form-none"}
+            date={this.props.dayInfos}
+            month={this.props.monthInfos}
+            year={this.props.yearInfos}
+            getInfosFromDayEvent={this.getInfosFromDayEvent}
+          />
+        }
       </div>
     );
   }

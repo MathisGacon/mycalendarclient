@@ -18,14 +18,61 @@
 }
 .day-event {
   position: absolute;
-  z-index: 999;
+  z-index: 20;
   width: 60%;
   height: 60%;
   color: white;
-  background-color: white;
+  background-color: beige;
   border-color: black;
+  overflow: scroll;
+  border-radius: 10px;
+  padding: 10px;
 }
+
+.day-event::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.day-event hr {
+  max-width: 100%;
+}
+
 .date {
   position: absolute;
   color: black;
+  font-family: "Times New Roman, Times, serif";
+  display: contents;
+  font-size: 24px;
+}
+.hour-day {
+  color: black;
+  padding-top: 20px;
+}
+.line-hour {
+  top: -16px;
+  left: 2%;
+  display: flex;
+  position: relative;
+  color: black;
+}
+.event-creater {
+  position: absolute;
+  right: 1%;
+  top: 0%;
+  color: black;
+  z-index: 35;
+  font-size: 35px;
+}
+
+.form-block {
+  display: "block";
+  z-index: 40;
+}
+
+.form-none {
+  display: none;
+}
+.event-info {
+  position: relative;
+  z-index: 30;
 }
